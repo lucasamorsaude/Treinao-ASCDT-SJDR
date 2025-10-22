@@ -1,5 +1,5 @@
 // Configuração - Substitua pela URL do seu Apps Script
-const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXPEP2HXVyG9Vbp1gEpcKukduHUsg-cOiOCnTQE5oqBYLeuNr-7gQ7kJIgvVnp10tg/exec';
+const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnYCg9HMjS8APbvP_q5dSWTjjsBJm3G8CCqbl8jVgO6wnlM-3OA9cpBSoaiVvEMowB/exec';
 const VAGAS_CAMISETAS = 50;
 
 class TreinaoRegistration {
@@ -26,7 +26,6 @@ class TreinaoRegistration {
     
     async updateCounter() {
         try {
-            // Tentar pegar o contador real do Apps Script
             const response = await fetch(`${APP_SCRIPT_URL}?action=count`);
             const result = await response.json();
             
@@ -41,7 +40,6 @@ class TreinaoRegistration {
             }
         } catch (error) {
             console.error('Erro ao atualizar contador:', error);
-            // Fallback: usar valor inicial
             this.vagasRestantes = Math.max(0, VAGAS_CAMISETAS - this.inscritosCount);
             this.counterNumber.textContent = this.vagasRestantes;
         }
@@ -74,10 +72,7 @@ class TreinaoRegistration {
             categoria: formData.get('categoria'),
             comoSoube: formData.get('como-soube'),
             termos: formData.get('termos') ? 'Aceito' : 'Não aceito',
-            newsletter: formData.get('newsletter') ? 'Sim' : 'Não',
-            dataInscricao: new Date().toISOString(),
-            evento: 'Treinão de TODOS - Corrida 5km & Caminhada 3km',
-            cidade: 'São João del Rei - MG'
+            newsletter: formData.get('newsletter') ? 'Sim' : 'Não'
         };
         
         await this.submitRegistration(registrationData);
@@ -94,99 +89,61 @@ class TreinaoRegistration {
     }
     
     async submitRegistration(data) {
+        let success = false;
+        let result = null;
+        
         try {
             this.setLoading(true);
             
-            // Método 1: Tentar requisição normal primeiro
-            try {
-                const response = await fetch(APP_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                if (response.ok) {
-                    const result = await response.json();
-                    await this.handleSuccess(result, data);
-                    return;
-                }
-            } catch (fetchError) {
-                console.log('Método 1 falhou, tentando método alternativo...', fetchError);
-            }
+            console.log('Dados a serem enviados:', data);
             
-            // Método 2: Usar Google Forms como fallback
-            await this.tryAlternativeMethod(data);
+            // Método 1: Usar GET com parâmetros URL
+            const params = new URLSearchParams();
+            Object.keys(data).forEach(key => {
+                if (data[key]) { // Só adiciona se não for vazio
+                    params.append(key, data[key]);
+                }
+            });
+            
+            const url = `${APP_SCRIPT_URL}?${params.toString()}`;
+            console.log('Enviando para:', url);
+            
+            const response = await fetch(url);
+            result = await response.json();
+            
+            if (result.success) {
+                success = true;
+                this.inscritosCount = result.numeroInscricao || this.inscritosCount + 1;
+                this.vagasRestantes = result.vagasRestantes || Math.max(0, VAGAS_CAMISETAS - this.inscritosCount);
+                
+                this.updateCounter();
+                this.showSuccess(result.garanteCamiseta, result.numeroInscricao);
+                this.form.reset();
+            } else {
+                throw new Error(result.error || 'Erro desconhecido no servidor');
+            }
             
         } catch (error) {
             console.error('Erro na inscrição:', error);
-            this.showError();
+            console.log('Resultado do servidor:', result);
+            
+            // Método de fallback - sempre mostrar sucesso para o usuário
+            success = true;
+            this.inscritosCount++;
+            this.vagasRestantes = Math.max(0, VAGAS_CAMISETAS - this.inscritosCount);
+            this.updateCounter();
+            
+            const garanteCamiseta = this.vagasRestantes > 0;
+            this.showSuccess(garanteCamiseta, this.inscritosCount);
+            this.form.reset();
+            
+            // Mostrar alerta informativo
+            alert('Inscrição recebida! Entraremos em contato para confirmação. Não esqueça de levar 1 brinquedo para doação.');
         } finally {
             this.setLoading(false);
         }
-    }
-    
-    async handleSuccess(result, originalData) {
-        if (result.success) {
-            this.inscritosCount = result.numeroInscricao || this.inscritosCount + 1;
-            this.vagasRestantes = result.vagasRestantes || Math.max(0, VAGAS_CAMISETAS - this.inscritosCount);
-            
-            this.updateCounter();
-            this.showSuccess(result.garanteCamiseta, result.numeroInscricao);
-            this.form.reset();
-            
-            // Verificar depois de 2 segundos se realmente foi registrado
-            setTimeout(() => {
-                this.verifyRegistration(originalData.email);
-            }, 2000);
-            
-        } else {
-            throw new Error(result.error || 'Erro desconhecido no servidor');
-        }
-    }
-    
-    async tryAlternativeMethod(data) {
-        // Método alternativo: Usar formulário HTML temporário
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = APP_SCRIPT_URL;
-        form.style.display = 'none';
         
-        // Adicionar todos os dados como campos hidden
-        Object.keys(data).forEach(key => {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = key;
-            input.value = data[key];
-            form.appendChild(input);
-        });
-        
-        document.body.appendChild(form);
-        form.submit();
-        
-        // Mostrar mensagem de sucesso assumindo que funcionou
-        this.inscritosCount++;
-        this.vagasRestantes = Math.max(0, VAGAS_CAMISETAS - this.inscritosCount);
-        this.updateCounter();
-        this.showSuccess(this.vagasRestantes > 0, this.inscritosCount);
-        this.form.reset();
-        
-        // Remover formulário após uso
-        setTimeout(() => document.body.removeChild(form), 1000);
-    }
-    
-    async verifyRegistration(email) {
-        try {
-            const response = await fetch(`${APP_SCRIPT_URL}?action=verify&email=${encodeURIComponent(email)}`);
-            const result = await response.json();
-            
-            if (!result.registered) {
-                console.warn('Inscrição não encontrada na verificação posterior');
-            }
-        } catch (error) {
-            console.error('Erro na verificação:', error);
-        }
+        return success;
     }
     
     showSuccess(garanteCamiseta, numeroInscricao = null) {
@@ -214,17 +171,6 @@ class TreinaoRegistration {
         this.successModal.style.display = 'block';
     }
     
-    showError() {
-        const modalMessage = document.getElementById('modalMessage');
-        modalMessage.innerHTML = `
-            <p><strong>Inscrição em processamento! ⚠️</strong></p>
-            <p>Sua inscrição foi recebida e está sendo processada.</p>
-            <p><strong>Não esqueça:</strong> Leve 1 brinquedo para doação no dia do evento.</p>
-            <p><em>Entraremos em contato em breve para confirmação.</em></p>
-        `;
-        this.successModal.style.display = 'block';
-    }
-    
     setLoading(loading) {
         this.submitBtn.disabled = loading;
         this.submitBtn.classList.toggle('loading', loading);
@@ -232,6 +178,42 @@ class TreinaoRegistration {
     
     hideModal() {
         this.successModal.style.display = 'none';
+    }
+    
+    setupModal() {
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            this.hideModal();
+        });
+        
+        this.closeModalBtn.addEventListener('click', () => {
+            this.hideModal();
+        });
+        
+        this.successModal.addEventListener('click', (e) => {
+            if (e.target === this.successModal) {
+                this.hideModal();
+            }
+        });
+    }
+    
+    setupMask() {
+        const telefoneInput = document.getElementById('telefone');
+        telefoneInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{2})(\d)/, '($1) $2');
+                value = value.replace(/(\d{5})(\d)/, '$1-$2');
+                e.target.value = value;
+            }
+        });
+    }
+    
+    setupValidation() {
+        const idadeInput = document.getElementById('idade');
+        idadeInput.addEventListener('input', (e) => {
+            if (e.target.value < 1) e.target.value = 1;
+            if (e.target.value > 100) e.target.value = 100;
+        });
     }
 }
 
