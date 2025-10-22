@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treinão de TODOS - Corrida 5km & Caminhada 3km | São João del Rei</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header com Logos -->
+    <header class="header">
+        <div class="container">
+            <div class="logos">
+                <img src="https://via.placeholder.com/200x80/61c1d0/ffffff?text=AmorSaúde" alt="AmorSaúde" class="logo amor-saude">
+                <div class="event-title">
+                    <h1>TREINÃO de TODOS</h1>
+                    <p>Corrida 5km • Caminhada 3km • Treino Funcional</p>
+                    <div class="local-badge">
+                        <span class="pin">📍</span>
+                        São João del Rei - MG
+                    </div>
+                </div>
+                <img src="https://via.placeholder.com/200x80/a5ff01/000000?text=Cartão+de+TODOS" alt="Cartão de TODOS" class="logo cartao-todos">
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">Evento Aberto ao Público • Ação Solidária</div>
+                <h2>Corrida + Caminhada + Natal Solidário</h2>
+                <p>Participe do evento esportivo e social de São João del Rei!</p>
+                
+                <div class="promo-banner">
+                    <div class="promo-content">
+                        <span class="promo-icon">🎁</span>
+                        <div class="promo-text">
+                            <strong>50 PRIMEIROS INSCRITOS</strong>
+                            <span>Garantam uma camiseta exclusiva do evento + número de peito</span>
+                        </div>
+                    </div>
+                    <div class="counter">
+                        <div class="counter-number">50</div>
+                        <div class="counter-label">vagas com camiseta</div>
+                    </div>
+                </div>
+
+                <div class="hero-highlights">
+                    <div class="highlight-item">
+                        <span class="icon">🏃‍♂️</span>
+                        <span>Corrida 5km</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="icon">🚶‍♀️</span>
+                        <span>Caminhada 3km</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="icon">💪</span>
+                        <span>Treino Funcional</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="icon">🎄</span>
+                        <span>Natal Solidário</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre o Evento -->
+    <section class="about-event">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3>Sobre o Treinão de TODOS</h3>
+                    <p>Um evento esportivo beneficente que combina saúde, bem-estar e solidariedade. Participe da corrida de 5km ou caminhada de 3km, seguida de um treino funcional gratuito para todos os participantes.</p>
+                    
+                    <div class="kit-info">
+                        <h4>🎯 Kit do Participante</h4>
+                        <ul>
+                            <li><strong>Número de peito</strong> para todos os participantes</li>
+                            <li><strong>Camiseta exclusiva</strong> apenas para os 50 primeiros inscritos</li>
+                            <li><strong>Medalha de participação</strong> para todos</li>
+                        </ul>
+                    </div>
+
+                    <div class="solidarity-info">
+                        <h4>🎄 Natal Solidário</h4>
+                        <p>Sua entrada é um <strong>brinquedo</strong> que será doado para crianças carentes da nossa cidade. Faça parte dessa corrente do bem!</p>
+                    </div>
+                </div>
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">⏱️</div>
+                        <div class="feature-text">
+                            <strong>Vagas Limitadas</strong>
+                            <span>Apenas 50 camisetas disponíveis</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏅</div>
+                        <div class="feature-text">
+                            <strong>Número de Peito</strong>
+                            <span>Para todos os participantes</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎪</div>
+                        <div class="feature-text">
+                            <strong>Área de Lazer</strong>
+                            <span>Stands e atividades recreativas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulário de Inscrição -->
+    <section class="registration">
+        <div class="container">
+            <div class="registration-card">
+                <div class="card-header">
+                    <h3>Inscreva-se Agora!</h3>
+                    <div class="entry-info">
+                        <span class="gift-icon">🎁</span>
+                        <span>Entrada: 1 Brinquedo para o Natal Solidário</span>
+                    </div>
+                    
+                    <div class="camiseta-alert">
+                        <span class="alert-icon">⚠️</span>
+                        <span><strong>ATENÇÃO:</strong> Apenas os 50 primeiros inscritos garantem camiseta</span>
+                    </div>
+                </div>
+                
+                <form id="registrationForm" class="registration-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo *</label>
+                            <input type="text" id="nome" name="nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="telefone">WhatsApp *</label>
+                            <input type="tel" id="telefone" name="telefone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="idade">Idade *</label>
+                            <input type="number" id="idade" name="idade" min="1" max="100" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalidade">Modalidade *</label>
+                        <select id="modalidade" name="modalidade" required>
+                            <option value="">Selecione sua modalidade</option>
+                            <option value="corrida-5km">Corrida 5km</option>
+                            <option value="caminhada-3km">Caminhada 3km</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tamanho_camiseta">Tamanho da Camiseta (opcional)</label>
+                        <select id="tamanho_camiseta" name="tamanho_camiseta">
+                            <option value="">Se não for dos 50 primeiros</option>
+                            <option value="P">P - Blusão</option>
+                            <option value="M">M - Blusão</option>
+                            <option value="G">G - Blusão</option>
+                            <option value="GG">GG - Blusão</option>
+                        </select>
+                        <small class="form-help">Escolha o tamanho mesmo que não garanta a camiseta</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria">Categoria *</label>
+                        <select id="categoria" name="categoria" required>
+                            <option value="">Selecione a categoria</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="como-soube">Como ficou sabendo do evento?</label>
+                        <select id="como-soube" name="como-soube">
+                            <option value="">Selecione uma opção</option>
+                            <option value="redes-sociais">Redes Sociais</option>
+                            <option value="amigos">Amigos/Família</option>
+                            <option value="cartaz">Cartaz/Divulgação Local</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="termos" name="termos" required>
+                        <label for="termos">Concordo em levar 1 brinquedo novo ou em bom estado para doação no dia do evento *</label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="newsletter" name="newsletter" checked>
+                        <label for="newsletter">Desejo receber informações sobre futuros eventos</label>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="submit-btn">
+                        <span class="btn-text">Realizar Inscrição Solidária</span>
+                        <span class="btn-loading">Cadastrando...</span>
+                    </button>
+
+                    <div class="form-footer">
+                        <p><strong>Kit garantido para todos:</strong> Número de peito e medalha de participação</p>
+                        <p><strong>Extra para os 50 primeiros:</strong> Camiseta exclusiva do evento</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Informações do Evento -->
+    <section class="event-info">
+        <div class="container">
+            <h3>Informações do Evento</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-icon">📅</div>
+                    <div class="info-content">
+                        <h4>Data</h4>
+                        <p>10 de Dezembro de 2024</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">⏰</div>
+                    <div class="info-content">
+                        <h4>Horário</h4>
+                        <p>07:00 - Concentração<br>08:00 - Largada</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <h4>Local</h4>
+                        <p>Parque Municipal<br>São João del Rei - MG</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">🎁</div>
+                    <div class="info-content">
+                        <h4>Entrada Solidária</h4>
+                        <p>1 Brinquedo para doação</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programação -->
+    <section class="schedule">
+        <div class="container">
+            <h3>Programação do Dia</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">07:00</div>
+                    <div class="timeline-content">
+                        <h4>Credenciamento e Recebimento de Brinquedos</h4>
+                        <p>Entrega do kit participante (número de peito) e recebimento das doações</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">07:30</div>
+                    <div class="timeline-content">
+                        <h4>Aquecimento e Alongamento</h4>
+                        <p>Preparação com profissionais de educação física</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">08:00</div>
+                    <div class="timeline-content">
+                        <h4>Largada - Corrida 5km e Caminhada 3km</h4>
+                        <p>Início das provas simultaneamente</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">09:30</div>
+                    <div class="timeline-content">
+                        <h4>Treino Funcional Coletivo</h4>
+                        <p>Aula aberta para todos os participantes</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">10:30</div>
+                    <div class="timeline-content">
+                        <h4>Stands e Atividades Recreativas</h4>
+                        <p>Parceiros, saúde e entretenimento</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">11:30</div>
+                    <div class="timeline-content">
+                        <h4>Encerramento</h4>
+                        <p>Entrega simbólica das doações e agradecimentos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logos">
+                    <img src="https://via.placeholder.com/150x60/61c1d0/ffffff?text=AmorSaúde" alt="AmorSaúde">
+                    <img src="https://via.placeholder.com/150x60/a5ff01/000000?text=Cartão+de+TODOS" alt="Cartão de TODOS">
+                </div>
+                <div class="footer-info">
+                    <p><strong>Treinão de TODOS</strong> - Unindo esporte e solidariedade em São João del Rei</p>
+                    <p>&copy; 2024 Treinão de TODOS. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Confirmação -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-icon">🎉</div>
+            <h3>Inscrição Realizada com Sucesso!</h3>
+            <div id="modalMessage">
+                <p><strong>Parabéns!</strong> Sua inscrição foi confirmada.</p>
+                <p><strong>Não esqueça:</strong> Leve 1 brinquedo para doação no dia do evento.</p>
+                <p>Você receberá seu <strong>número de peito</strong> no credenciamento.</p>
+            </div>
+            <button class="modal-btn" id="closeModalBtn">Fechar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
