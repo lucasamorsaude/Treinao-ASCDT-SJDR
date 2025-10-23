@@ -6,6 +6,7 @@
     <title>Treinão de TODOS - Corrida 5km & Caminhada 3km | São João del Rei</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="logo-treinao.png">
 </head>
 <body>
     <!-- Header com Logos -->
@@ -136,7 +137,9 @@
                     </div>
                 </div>
                 
-                <form id="registrationForm" class="registration-form">
+                <form id="registrationForm" class="registration-form" aria-labelledby="form-title">
+
+                    <div id="formFeedback" aria-live="polite" class="sr-only"></div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="nome">Nome Completo *</label>
@@ -150,8 +153,9 @@
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="telefone">WhatsApp *</label>
-                            <input type="tel" id="telefone" name="telefone" required>
+                            <label for="telefone">WhatsApp * <small>(com DDD)</small></label>
+                            <input type="tel" id="telefone" name="telefone" required 
+                                placeholder="(31) 99999-9999">
                         </div>
                         <div class="form-group">
                             <label for="idade">Idade *</label>
@@ -212,7 +216,9 @@
 
                     <button type="submit" id="submitBtn" class="submit-btn">
                         <span class="btn-text">Realizar Inscrição Solidária</span>
-                        <span class="btn-loading">Cadastrando...</span>
+                        <span class="btn-loading">
+                            <span class="spinner"></span> Cadastrando...
+                        </span>
                     </button>
 
                     <div class="form-footer">

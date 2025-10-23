@@ -15,12 +15,76 @@ class TreinaoRegistration {
         
         this.init();
     }
+
+    setupRealTimeValidation() {
+        const inputs = this.form.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('blur', (e) => this.validateField(e.target));
+        });
+    }
+
+    validateField(field) {
+        const value = field.value.trim();
+        
+        switch(field.id) {
+            case 'email':
+                if (value && !this.isValidEmail(value)) {
+                    this.showFieldError(field, 'Por favor, insira um email válido');
+                    return false;
+                }
+                break;
+                
+            case 'telefone':
+                if (value && value.replace(/\D/g, '').length < 10) {
+                    this.showFieldError(field, 'Por favor, insira um telefone válido');
+                    return false;
+                }
+                break;
+                
+            case 'idade':
+                if (value && (value < 1 || value > 100)) {
+                    this.showFieldError(field, 'Idade deve ser entre 1 e 100 anos');
+                    return false;
+                }
+                break;
+        }
+        
+        this.clearFieldError(field);
+        return true;
+    }
+
+    isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    showFieldError(field, message) {
+        this.clearFieldError(field);
+        field.style.borderColor = 'var(--amorsaude-vermelho)';
+        
+        const errorElement = document.createElement('div');
+        errorElement.className = 'field-error';
+        errorElement.style.color = 'var(--amorsaude-vermelho)';
+        errorElement.style.fontSize = '0.8rem';
+        errorElement.style.marginTop = '5px';
+        errorElement.textContent = message;
+        
+        field.parentNode.appendChild(errorElement);
+    }
+
+    clearFieldError(field) {
+        field.style.borderColor = '#e1e5e9';
+        const existingError = field.parentNode.querySelector('.field-error');
+        if (existingError) {
+            existingError.remove();
+        }
+    }
     
     init() {
         this.form.addEventListener('submit', (e) => this.handleSubmit(e));
         this.setupModal();
         this.setupMask();
         this.setupValidation();
+        this.setupRealTimeValidation(); // ← Nova linha
         this.updateCounter();
     }
     
