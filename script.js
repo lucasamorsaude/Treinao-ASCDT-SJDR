@@ -86,6 +86,39 @@ class TreinaoRegistration {
         this.setupValidation();
         this.setupRealTimeValidation(); // ← Nova linha
         this.updateCounter();
+        this.setupFloatingButton();
+    }
+
+    setupFloatingButton() {
+        const floatingBtn = document.getElementById('floatingBtn');
+        
+        floatingBtn.addEventListener('click', () => {
+            // Rola suavemente até o formulário de inscrição
+            const registrationSection = document.querySelector('.registration');
+            registrationSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Efeito visual de clique
+            floatingBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                floatingBtn.style.transform = '';
+            }, 150);
+            
+            // Foca no primeiro campo do formulário
+            setTimeout(() => {
+                document.getElementById('nome').focus();
+            }, 800);
+        });
+        
+        // Esconde o tooltip após alguns segundos
+        setTimeout(() => {
+            const tooltip = document.querySelector('.floating-tooltip');
+            if (tooltip) {
+                tooltip.style.opacity = '0';
+            }
+        }, 5000);
     }
     
     async updateCounter() {
@@ -280,6 +313,7 @@ class TreinaoRegistration {
         });
     }
 }
+
 
 // Inicializar quando a página carregar
 document.addEventListener('DOMContentLoaded', () => {
